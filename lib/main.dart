@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/splash/presentation/screens/splash_screen.dart';
+
+import 'core/routes/app_routes.dart';
 
 void main() {
   runApp(Medico());
@@ -10,7 +11,8 @@ class Medico extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }
