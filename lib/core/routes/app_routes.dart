@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/features/auth/register/presentation/screens/register_screen.dart';
+import '../../features/appoinments/presentation/cubit/apppointment_cubit.dart';
 import '../../features/auth/login/data/repo/login_repo.dart';
 import '../../features/auth/login/presentation/cubit/login_cubit.dart';
 import '../../features/favourites/presentation/cubit/favourite_cubit.dart';
@@ -37,8 +38,15 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case home:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => FavoriteCubit(getIt()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => FavoriteCubit(getIt()),
+              ),
+              BlocProvider(
+                create: (_) => AppointmentCubit(getIt()),
+              ),
+            ],
             child: MainScreen(),
           ),
         );

@@ -7,6 +7,8 @@ import '../../../../core/widgets/home_app_bar.dart';
 import '../../../../core/widgets/search_field.dart';
 import '../../../../core/widgets/specialization_list.dart';
 import '../../../../core/widgets/top_doctor.dart';
+import '../../../appoinments/presentation/cubit/apppointment_cubit.dart';
+import '../../../appoinments/presentation/screens/appoint_bottom_sheet.dart';
 import '../../../favourites/presentation/cubit/favourite_cubit.dart';
 import '../../../favourites/presentation/cubit/favourite_state.dart';
 import '../../data/models/doctor_model.dart';
@@ -135,7 +137,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       onFavoriteTap: (doctor) {
                         favoriteCubit.toggleFavorite(doctor);
                       },
-                      onBookTap: (doctor) {},
+                      onBookTap: (doctor) {
+                        final appointmentCubit = context.read<AppointmentCubit>();
+
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (_) {
+                            return BlocProvider.value(
+                              value: appointmentCubit,
+                              child: AppointmentBottomSheet(
+                                doctor: doctor,
+                              ),
+                            );
+                          },
+                        );
+                      },
                       onSeeAllTap: () {},
                     );
                   },
