@@ -5,6 +5,7 @@ import 'package:medico/core/networking/dio_factory.dart';
 import '../../features/auth/login/data/repo/login_repo.dart';
 import '../../features/auth/register/data/repo/register_repo.dart';
 import '../../features/auth/register/presentation/cubit/register_cubit.dart';
+import '../../features/favourites/data/repo/favourite_repo.dart';
 import '../routes/utils/token_storage.dart';
 
 GetIt getIt = GetIt.instance;
@@ -22,5 +23,6 @@ Future<void> setupGetIt() async {
     () => RegisterRepo(getIt(), getIt()),
   );
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt(), getIt()));
+  getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepo(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 }

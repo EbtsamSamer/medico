@@ -100,9 +100,20 @@ class DoctorCardWidget extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: onFavoriteTap,
-                child: Icon(
-                  isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                  color: isFavorite ? AppColors.error : AppColors.secondaryText,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: isFavorite ? Colors.red : Colors.grey.shade200,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    color: isFavorite ? Colors.white : Colors.grey,
+                    size: 24,
+                  ),
                 ),
               ),
             ],

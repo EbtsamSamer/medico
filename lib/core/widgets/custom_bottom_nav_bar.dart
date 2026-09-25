@@ -20,6 +20,7 @@ class CustomBottomNavBar extends StatelessWidget {
     this.items = const [
       CustomBottomNavItem(icon: Icons.home_rounded, label: 'Home'),
       CustomBottomNavItem(icon: Icons.favorite_border_rounded, label: 'Favorites'),
+      CustomBottomNavItem(icon: Icons.event_note_rounded, label: 'Appointments'),
       CustomBottomNavItem(icon: Icons.person_outline_rounded, label: 'Profile'),
     ],
   });

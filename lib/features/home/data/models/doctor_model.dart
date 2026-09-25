@@ -14,4 +14,26 @@ class DoctorModel {
     required this.yearsOfExperience,
     required this.location,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'specialization': specialization,
+      'imageUrl': imageUrl,
+      'rating': rating,
+      'yearsOfExperience': yearsOfExperience,
+      'location': location,
+    };
+  }
+
+  factory DoctorModel.fromJson(Map<String, dynamic> json) {
+    return DoctorModel(
+      name: json['name'],
+      specialization: json['specialization'],
+      imageUrl: json['imageUrl'],
+      rating: (json['rating'] as num).toDouble(),
+      yearsOfExperience: json['yearsOfExperience'],
+      location: json['location'],
+    );
+  }
 }

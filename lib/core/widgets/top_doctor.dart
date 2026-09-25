@@ -7,15 +7,15 @@ import 'doctor_card.dart';
 
 class TopDoctorsListWidget extends StatelessWidget {
   final List<DoctorModel> doctors;
-  final Set<int> favoriteIndexes;
-  final ValueChanged<int> onFavoriteTap;
+  final bool Function(DoctorModel doctor) isFavorite;
+  final ValueChanged<DoctorModel> onFavoriteTap;
   final ValueChanged<DoctorModel> onBookTap;
   final VoidCallback? onSeeAllTap;
 
   const TopDoctorsListWidget({
     super.key,
     required this.doctors,
-    required this.favoriteIndexes,
+    required this.isFavorite,
     required this.onFavoriteTap,
     required this.onBookTap,
     this.onSeeAllTap,
@@ -29,7 +29,7 @@ class TopDoctorsListWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             Text(
+            Text(
               'Top Doctors',
               style: TextStyle(
                 fontSize: 18,
@@ -39,7 +39,7 @@ class TopDoctorsListWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: onSeeAllTap,
-              child:  Text(
+              child: Text(
                 'See All',
                 style: TextStyle(
                   fontSize: 14,
@@ -50,20 +50,28 @@ class TopDoctorsListWidget extends StatelessWidget {
             ),
           ],
         ),
-         SizedBox(height: 14),
-        ListView.separated(
-          shrinkWrap: true,
-          physics:  NeverScrollableScrollPhysics(),
-          itemCount: doctors.length,
-          separatorBuilder: (_, __) =>  SizedBox(height: 14),
-          itemBuilder: (context, index) {
-            return DoctorCardWidget(
-              doctor: doctors[index],
-              isFavorite: favoriteIndexes.contains(index),
-              onFavoriteTap: () => onFavoriteTap(index),
-              onBookTap: () => onBookTap(doctors[index]),
-            );
-          },
+
+        SizedBox(height: 14),
+        Column(
+          children: List.generate(
+            doctors.length,
+                (index) {
+              final doctor = doctors[index];
+              final favorite = isFavorite(doctor);
+
+              print('${doctor.name} => isFavorite: $favorite');
+
+              return Padding(
+                padding: EdgeInsets.only(bottom: 14),
+                child: DoctorCardWidget(
+                  doctor: doctor,
+                  isFavorite: favorite,
+                  onFavoriteTap: () => onFavoriteTap(doctor),
+                  onBookTap: () => onBookTap(doctor),
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
