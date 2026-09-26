@@ -6,6 +6,7 @@ import '../../features/auth/login/data/repo/login_repo.dart';
 import '../../features/auth/login/presentation/cubit/login_cubit.dart';
 import '../../features/favourites/presentation/cubit/favourite_cubit.dart';
 import '../../features/main_screen_for_nav.dart';
+import '../../features/profile/presentation/cubit/profile_cubit.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/auth/login/presentation/screens/login_screen.dart';
@@ -45,6 +46,9 @@ class AppRoutes {
               ),
               BlocProvider(
                 create: (_) => AppointmentCubit(getIt()),
+              ),
+              BlocProvider(
+                create: (_) => ProfileCubit(getIt(),getIt()),
               ),
             ],
             child: MainScreen(),

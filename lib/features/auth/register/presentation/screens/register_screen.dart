@@ -10,7 +10,6 @@ import '../../data/models/rejester_request_model.dart';
 import '../cubit/register_cubit.dart';
 import '../cubit/register_state.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -50,7 +49,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       password: _passwordController.text,
     );
 
-    context.read<RegisterCubit>().register(registerModel);
+    context.read<RegisterCubit>().register(
+      registerModel,
+      _phoneController.text.trim(),
+    );
   }
 
   @override
@@ -63,13 +65,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Navigator.pushNamedAndRemoveUntil(
               context,
               AppRoutes.home,
-              (route) => false,
+                  (route) => false,
             );
           }
 
           if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message ?? 'Something went wrong')),
+              SnackBar(
+                content: Text(state.message ?? 'Something went wrong'),
+              ),
             );
           }
         },
@@ -249,8 +253,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: isLoading
                               ? null
                               : () {
-                                  _onRegisterPressed(context);
-                                },
+                            _onRegisterPressed(context);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff3181EA),
                             foregroundColor: Colors.white,
@@ -261,20 +265,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           child: isLoading
                               ? SizedBox(
-                                  width: 25,
-                                  height: 25,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 2.5,
-                                  ),
-                                )
+                            width: 25,
+                            height: 25,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2.5,
+                            ),
+                          )
                               : Text(
-                                  'Create Account',
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                            'Create Account',
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
 
@@ -319,4 +323,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-}
+  }
+
